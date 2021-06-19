@@ -45,14 +45,14 @@ include '../templates/sidebar.php'; // 3
                   <table id="example" class="table">
                      <thead>
                         <tr>
-                           <th>No</th>
+                           <th width="5%">No</th>
                            <th>Image</th>
                            <th>Nama Lengkap</th>
-                           <th>Email</th>
+                           <th width="20%">Email</th>
                            <th>Tanggal Pembuatan</th>
                            <th>Status</th>
                            <th>Role</th>
-                           <th></th>
+                           <th width="4%"></th>
                         </tr>
                      </thead>
                      <tbody>

@@ -29,8 +29,9 @@ include '../templates/sidebar.php'; // 3
             </ol>
          </nav>
       </div>
+      <!-- akhir header -->
+
    </div>
-   <!-- akhir header -->
 
    <!-- akhir konten -->
 

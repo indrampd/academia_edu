@@ -15,16 +15,16 @@
             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
          </a>
       </li>
+      <li class="nav-item <?= ($_SESSION['role'] == 2) ? 'd-none' : ""; ?> ">
+         <a class="nav-link" href="../menu/dashboard.php">
+            <span class="menu-title">Dashboard</span>
+            <i class="mdi mdi-view-dashboard menu-icon"></i>
+         </a>
+      </li>
       <li class="nav-item">
          <a class="nav-link" href="../menu/home.php">
             <span class="menu-title">Home</span>
             <i class="mdi mdi-home menu-icon"></i>
-         </a>
-      </li>
-      <li class="nav-item <?= ($_SESSION['role'] == 2) ? 'd-none' : ""; ?> ">
-         <a class="nav-link" href="../menu/dashboard.php">
-            <span class="menu-title">Dashboard Admin</span>
-            <i class="mdi mdi-view-dashboard menu-icon"></i>
          </a>
       </li>
       <li class="nav-item <?= ($_SESSION['role'] == 2) ? 'd-none' : ""; ?> ">
@@ -49,7 +49,7 @@
          <div class="collapse" id="file-management">
             <ul class="nav flex-column sub-menu">
                <li class="nav-item"> <a class="nav-link" href="../menu/my_files.php">My Files</a></li>
-               <li class="nav-item"> <a class="nav-link" href="../menu/share_file.php">Share File</a></li>
+               <!-- <li class="nav-item"> <a class="nav-link" href="../menu/share_file.php">Share File</a></li> -->
                <li class="nav-item"> <a class="nav-link" href="../menu/upload_file.php">Upload File</a></li>
             </ul>
          </div>

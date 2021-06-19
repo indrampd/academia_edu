@@ -9,11 +9,11 @@ if (!isset($_SESSION['user_id'])) {
    header("location: ../auth");
 }
 
-$email = $_SESSION['login'];
 
 if (isset($_GET['id'])) {
    $file_id = $_GET['id'];
    $file = get_where("tbl_file", "file_id", $file_id);
+   $email = get_where("tbl_user", "user_id", $file['user_id']);
 }
 
 
@@ -39,9 +39,9 @@ include '../templates/sidebar.php'; // 3
       <!--  -->
       <div class="row">
          <iframe tyle="width:100%; height: 100%" src="../assets/uploads/indramahpudin21@gmail.com/Program3.pdf">
-            <!-- <iframe src="https://docs.google.com/viewerng/viewer?url=../assets/uploads/<?= $email ?>/<?= $file['nama_file'] ?>" frameborder="0" height="100%" width="100%">
+            <!-- <iframe src="https://docs.google.com/viewerng/viewer?url=../assets/uploads/<?= $email['email'] ?>/<?= $file['nama_file'] ?>" frameborder="0" height="100%" width="100%">
          </iframe> -->
-            <!-- <iframe src="../assets/uploads/<?= $email ?>/<?= $file['nama_file'] ?>" s frameborder="0"> </iframe> -->
+            <!-- <iframe src="../assets/uploads/<?= $email['email'] ?>/<?= $file['nama_file'] ?>" s frameborder="0"> </iframe> -->
 
       </div>
    </div>

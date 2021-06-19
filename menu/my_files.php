@@ -9,7 +9,13 @@ if (!isset($_SESSION['user_id'])) {
    header("location: ../auth");
 }
 
-$files = query_assoc("SELECT * FROM tbl_file");
+
+if ($_SESSION['role'] == 1) {
+   $files = query_assoc("SELECT * FROM tbl_file");
+} else {
+   $user_id = $_SESSION['user_id'];
+   $files = query_assoc("SELECT * FROM tbl_file WHERE `user_id` = $user_id");
+}
 // $user = get_where("tbl_user", 'user_id', $files[0]['user_id']);
 
 include '../templates/header.php';  // 1
@@ -46,14 +52,13 @@ include '../templates/sidebar.php'; // 3
                   <table id="example" class="table">
                      <thead>
                         <tr>
-                           <th>No</th>
-                           <th>Pemilik</th>
-                           <th>Judul</th>
-                           <th>Deskripsi</th>
-                           <th>Privasi</th>
-                           <!-- <th>Ukuran File (MB)</th> -->
+                           <th width="5%">No</th>
+                           <th width="20%">Pemilik</th>
+                           <th width="20%">Judul</th>
+                           <th width="30%">Deskripsi</th>
+                           <th width="10%">Privasi</th>
                            <th>Waktu Upload</th>
-                           <th></th>
+                           <th width="4%"></th>
                         </tr>
                      </thead>
                      <tbody>
@@ -65,7 +70,7 @@ include '../templates/sidebar.php'; // 3
                            <tr>
                               <td><?= $i++ ?></td>
                               <td><?= $user['email'] ?></td>
-                              <td><?= $file['judul'] ?></td>
+                              <td><?= $file['judul'] ?> </td>
                               <td><?= $file['deskripsi'] ?></td>
                               <td><?= privasi($file['privasi']) ?></td>
                               <!-- <td><?= convert_size_file($file['ukuran_file'], 'M', 1) ?> MB</td> -->
@@ -107,16 +112,6 @@ include '../templates/sidebar.php'; // 3
                               </div>
                            </tr>
                         <?php endforeach; ?>
-                        <!-- <tr>
-                           <td>Jacob</td>
-                           <td>Photoshop</td>
-                           <td>Photoshop</td>
-                           <td>Photoshop</td>
-                           <td>Photoshop</td>
-                           <td>Photoshop</td>
-                           <td><label class="badge badge-danger">Non-Aktif</label></td>
-                           <td class="text-danger"> User</i></td>
-                        </tr> -->
                      </tbody>
                   </table>
                </div>
