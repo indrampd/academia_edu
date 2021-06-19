@@ -7,6 +7,13 @@ $username = $_SESSION['username'];
 
 $user_session = get_where("tbl_user", "user_id", $_SESSION['user_id']);
 
+$s_kategori = "";
+$s_keyword = "";
+if (isset($_POST['search'])) {
+   $s_kategori = $_POST['s_kategori'];
+   $s_keyword = $_POST['s_keyword'];
+}
+
 ?>
 
 <!-- partial:partials/_navbar.html -->
@@ -19,13 +26,24 @@ $user_session = get_where("tbl_user", "user_id", $_SESSION['user_id']);
       <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
          <span class="mdi mdi-menu"></span>
       </button>
-      <div class="search-field d-none d-md-block">
-         <form class="d-flex align-items-center h-100" action="#">
-            <div class="input-group">
+      <div class="search-field col-8 d-none d-md-block">
+         <form class="d-flex align-items-center h-100" action="#" method="post">
+            <div class="input-group ">
                <div class="input-group-prepend bg-transparent">
                   <i class="input-group-text border-0 mdi mdi-magnify"></i>
                </div>
-               <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+               <input type="text" class="form-control bg-transparent border-0 search-form" placeholder="Search" type="text" name="s_keyword" id="s_keyword" value="<?php echo $s_keyword; ?>">
+            </div>
+            <div class="input-group">
+               <select name="s_kategori" id="s_kategori" class="form-control">
+                  <option value="">Filter</option>
+                  <option value="pdf" <?php if ($s_kategori == "pdf") {
+                                          echo "selected";
+                                       } ?>>PDF</option>
+                  <option value="pptx" <?php if ($s_kategori == "pptx") {
+                                          echo "selected";
+                                       } ?>>PPTX</option>
+               </select>
             </div>
          </form>
       </div>

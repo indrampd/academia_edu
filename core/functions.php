@@ -170,7 +170,7 @@ function btn_follow($id_session, $user_id)
          </a>";
       } else {
          echo "
-         <a href='?follow=1&id=$id_session&followed=$user_id' class='mr-2 text-info'>
+         <a href='?follow=1&id=$id_session&followed=$user_id' class='mr-2 text-primary'>
             <i class='mdi mdi-plus-circle'></i>
             <span>Follow</span>
          </a>";
@@ -181,7 +181,7 @@ function btn_follow($id_session, $user_id)
 function status($string)
 {
    if ($string == 1) {
-      $data = "<label class='badge badge-success'>Aktif</label>";
+      $data = "<label class='badge badge-info'>Aktif</label>";
    } else {
       $data = "<label class='badge badge-danger'>Non-Aktif</label>";
    }

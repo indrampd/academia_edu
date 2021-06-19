@@ -49,71 +49,73 @@ include '../templates/sidebar.php'; // 3
                   <hr class="mb-5">
                   <!-- <p class="card-description"> Add class <code>.table-hover</code> -->
                   </p>
-                  <table id="example" class="table">
-                     <thead>
-                        <tr>
-                           <th width="5%">No</th>
-                           <th width="20%">Pemilik</th>
-                           <th width="20%">Judul</th>
-                           <th width="30%">Deskripsi</th>
-                           <th width="10%">Privasi</th>
-                           <th>Waktu Upload</th>
-                           <th width="4%"></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <?php
-                        $i = 1;
-                        foreach ($files as $file) :
-                           $user = get_where("tbl_user", "user_id", $file['user_id']);
-                        ?>
+                  <div class="table-responsive">
+                     <table id="example" class="table">
+                        <thead>
                            <tr>
-                              <td><?= $i++ ?></td>
-                              <td><?= $user['email'] ?></td>
-                              <td><?= $file['judul'] ?> </td>
-                              <td><?= $file['deskripsi'] ?></td>
-                              <td><?= privasi($file['privasi']) ?></td>
-                              <!-- <td><?= convert_size_file($file['ukuran_file'], 'M', 1) ?> MB</td> -->
-                              <td><?= date('d F Y', $file['date_created']) ?> </td>
-                              <td class="text-right">
-                                 <div class="dropdown">
-                                    <a class="badge badge-sm badge-icon-only badge-secondary text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                       <a class="dropdown-item" href="edit_file.php?id=<?= $file['file_id'] ?>">Edit</a>
-                                       <a class="dropdown-item" href="share_file.php?id=<?= $file['file_id'] ?>">Bagikan</a>
-
-                                       <!-- modal button -->
-                                       <a class="dropdown-item" data-toggle="modal" data-target="#HapusModal-<?= $file['file_id'] ?>" style="cursor:pointer">Hapus</a>
-
-                                    </div>
-                                 </div>
-                              </td>
-
-                              <div class="modal fade" id="HapusModal-<?= $file['file_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalHapus" aria-hidden="true">
-                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="HapusModalLongTitle">Hapus data</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                             <span aria-hidden="true">&times;</span>
-                                          </button>
-                                       </div>
-                                       <div class="modal-body">
-                                          Apakah Anda yakin ingin menghapus data ini?
-                                       </div>
-                                       <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                          <a class="btn btn-danger" href="delete_file.php?id=<?= $file['file_id'] ?>">Hapus</a>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
+                              <th width="5%">No</th>
+                              <th width="20%">Pemilik</th>
+                              <th width="20%">Judul</th>
+                              <th width="30%">Deskripsi</th>
+                              <th width="10%">Privasi</th>
+                              <th>Waktu Upload</th>
+                              <th width="4%"></th>
                            </tr>
-                        <?php endforeach; ?>
-                     </tbody>
-                  </table>
+                        </thead>
+                        <tbody>
+                           <?php
+                           $i = 1;
+                           foreach ($files as $file) :
+                              $user = get_where("tbl_user", "user_id", $file['user_id']);
+                           ?>
+                              <tr>
+                                 <td><?= $i++ ?></td>
+                                 <td><?= $user['email'] ?></td>
+                                 <td><?= $file['judul'] ?> </td>
+                                 <td><?= $file['deskripsi'] ?></td>
+                                 <td><?= privasi($file['privasi']) ?></td>
+                                 <!-- <td><?= convert_size_file($file['ukuran_file'], 'M', 1) ?> MB</td> -->
+                                 <td><?= date('d F Y', $file['date_created']) ?> </td>
+                                 <td class="text-right">
+                                    <div class="dropdown">
+                                       <a class="badge badge-sm badge-icon-only badge-secondary text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="fas fa-ellipsis-v"></i>
+                                       </a>
+                                       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                          <a class="dropdown-item" href="edit_file.php?id=<?= $file['file_id'] ?>">Edit</a>
+                                          <a class="dropdown-item" href="share_file.php?id=<?= $file['file_id'] ?>">Bagikan</a>
+
+                                          <!-- modal button -->
+                                          <a class="dropdown-item" data-toggle="modal" data-target="#HapusModal-<?= $file['file_id'] ?>" style="cursor:pointer">Hapus</a>
+
+                                       </div>
+                                    </div>
+                                 </td>
+
+                                 <div class="modal fade" id="HapusModal-<?= $file['file_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalHapus" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="HapusModalLongTitle">Hapus data</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body">
+                                             Apakah Anda yakin ingin menghapus data ini?
+                                          </div>
+                                          <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                             <a class="btn btn-danger" href="delete_file.php?id=<?= $file['file_id'] ?>">Hapus</a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </tr>
+                           <?php endforeach; ?>
+                        </tbody>
+                     </table>
+                  </div>
                </div>
             </div>
          </div>

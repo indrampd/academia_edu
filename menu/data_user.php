@@ -68,7 +68,7 @@ include '../templates/sidebar.php'; // 3
                                  <td><?= $user['email'] ?></td>
                                  <td><?= date('d F Y', $user['date_created']) ?></td>
                                  <td><?= status($user['status']) ?></td>
-                                 <td class="text-success"><?= rolename($user['role_id']); ?></i></td>
+                                 <td class="text-info"><?= rolename($user['role_id']); ?></i></td>
                                  <td class="text-right">
                                     <div class="dropdown">
                                        <a class="badge badge-sm badge-icon-only badge-secondary text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

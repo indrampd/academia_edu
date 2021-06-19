@@ -9,57 +9,79 @@ if (!isset($_SESSION['user_id'])) {
    header("location: ../auth");
 }
 
-$files = query_assoc("SELECT * FROM `tbl_file`  WHERE `privasi` = 2 ");
+$user_id = $_GET['id'];
+$user = get_where("tbl_user", "user_id", $user_id);
+$files = query_assoc("SELECT * FROM `tbl_file` WHERE `user_id`= $user_id");
+
 if (isset($_GET['id']) && isset($_GET['followed'])) {
 
    if (isset($_GET['follow'])) {
       if (do_follow($_GET['id'], $_GET['followed'])) {
-         header("location: home.php");
+         $user_follow = $_GET['followed'];
+         header("location: profile.php?id=$user_follow");
       }
    }
 
    if (isset($_GET['unfollow'])) {
       if (do_unfollow($_GET['id'], $_GET['followed'])) {
-         header("location: home.php");
+         $user_follow = $_GET['followed'];
+         header("location: profile.php?id=$user_follow");
       }
    }
 }
-
-// $user_id = $_SESSION['user_id'];
-
-// $fileSearch = query_assoc("SELECT * FROM `tbl_file` WHERE `user_id`=$user_id");
-
-// if (isset($_POST['search'])) {
-//    $fileSearch = searchFiles($_POST['keyword']);
-// }
-
 
 include '../templates/header.php';  // 1
 include '../templates/navbar.php';  // 2
 include '../templates/sidebar.php'; // 3
 
 ?>
-<!-- main content -->
+
+<!-- main konten -->
 <div class="main-panel">
    <div class="content-wrapper">
-      <!-- header -->
       <div class="page-header">
-         <h3 class="page-title">Halaman Utama</h3>
+         <h3 class="page-title">Profil Saya</h3>
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="../menu/home.php">Home</a></li>
-               <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
+               <li class="breadcrumb-item"><a href="../menu/my_profile.php">Profile</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Profil Saya</li>
             </ol>
          </nav>
       </div>
-      <!-- akhir header -->
-      <!--  -->
-      <div class="row justify-content-center">
+      <div class="row justify-content-end">
+
+         <!-- profile -->
+         <div class="col-md-4">
+            <div class="card">
+               <div class="card-body">
+                  <h4 class="card-title mb-4">Detail Profile</h4>
+                  <hr class="mb-3">
+                  <div class="row d-flex flex-column text-center align-items-sm-center mb-4">
+                     <img src="../assets/profile/<?= $user['image'] ?>" class="rounded-circle" width="150px" height="150px" alt="">
+                  </div>
+                  <p class="card-text text-center mb-3">
+                     <?= $user['username'] ?>
+                  </p>
+                  <p class="card-text text-center mb-3">
+                     <small><b><?= followers($user['user_id']) ?></b> Followers </small>
+                     <small class="text-muted"> | </small>
+                     <small><b><?= following($user['user_id']) ?></b> Following </small>
+                  </p>
+                  <div class="row d-flext flex-column text-center align-items-sm-center ">
+                     <a href=""><span class="btn btn-outline-secondary btn-rounded btn-sm">Ubah Foto Profile</span></a>
+                  </div>
+
+
+               </div>
+            </div>
+         </div>
+         <!-- end profile -->
+
          <?php
          foreach ($files as $file) :
             $user = get_where("tbl_user", "user_id", $file['user_id']);
          ?>
-            <div class="col-sm-12 mb-4">
+            <div class="col-sm-8 mb-4">
                <div class="card">
                   <div class="card-body">
                      <a href="">
@@ -69,8 +91,8 @@ include '../templates/sidebar.php'; // 3
                      <p class="card-text">
                         <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
                         <a href="<?= ($_SESSION['user_id'] == $user['user_id']) ? `my_profile.php` : "profile.php?id=" . $file['user_id']; ?>">
-                           <span class="text-muted mr-2"> <?= $user['username'] ?></span>
-                        </a>
+                           <span class="text-muted mr-2"> <?= $user['username'] ?>
+                           </span></a>
                         <?php
                         btn_follow($_SESSION['user_id'], $file['user_id']);
                         ?>
@@ -85,7 +107,7 @@ include '../templates/sidebar.php'; // 3
                      </p>
                      <hr>
                      <button onclick="window.location.href='../assets/uploads/<?= $user['email'] ?>/<?= $file['nama_file'] ?>';" class="btn btn-rounded btn-primary mr-2">Download</button>
-                     <button type="submit" onclick="window.location.href='share_file.php';" class="btn btn-outline-secondary btn-rounded btn-icon">
+                     <button type="submit" onclick="window.location.href='share_file.php';" class="btn btn-outline-primary btn-rounded btn-icon">
                         <i class="mdi mdi-share"></i>
                      </button>
                   </div>
@@ -93,9 +115,9 @@ include '../templates/sidebar.php'; // 3
             </div>
          <?php endforeach ?>
 
-
       </div>
    </div>
+
    <!-- akhir konten -->
 
    <?php include '../templates/footer.php' ?>

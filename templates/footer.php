@@ -29,6 +29,7 @@
 <script src="../assets/js/dashboard.js"></script>
 <script src="../assets/js/todolist.js"></script>
 <script src="../assets/js/file-upload.js"></script>
+<script src="../assets/js/search.js"></script>
 
 
 <!-- dataTables -->
