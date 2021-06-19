@@ -10,6 +10,21 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $files = query_assoc("SELECT * FROM `tbl_file`  WHERE `privasi` = 2 ");
+if (isset($_GET['id']) && isset($_GET['followed'])) {
+
+   if (isset($_GET['follow'])) {
+      if (do_follow($_GET['id'], $_GET['followed'])) {
+         header("location: home.php");
+      }
+   }
+
+   if (isset($_GET['unfollow'])) {
+      if (do_unfollow($_GET['id'], $_GET['followed'])) {
+         header("location: home.php");
+      }
+   }
+}
+
 
 include '../templates/header.php';  // 1
 include '../templates/navbar.php';  // 2
@@ -44,24 +59,25 @@ include '../templates/sidebar.php'; // 3
                      </a>
                      <hr>
                      <p class="card-text">
-                        <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle" class="rounded-circle">
-                        <a href=""><small class="text-muted"> <?= $user['username'] ?></small></a>
+                        <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
+                        <a href=""><span class="text-muted mr-2"> <?= $user['username'] ?></span></a>
+                        <?php
+                        btn_follow($_SESSION['user_id'], $file['user_id']);
+                        ?>
+                        <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
+                           <i class="mdi mdi-message"></i>
+                           <span>Pesan</span>
+                        </a>
                      </p>
                      <p class="card-text text-dark"><?= $file['deskripsi'] ?></p>
-                     <p class="card-text"><small class="text-muted">Terakhir diubah <?= date('d F Y', $file['date_created']) ?></small></p>
+                     <p class="card-text">
+                        <small class="text-muted">Terakhir diubah <?= date('d F Y', $file['date_created']) ?></small>
+                     </p>
                      <hr>
-                     <div class="row">
-                        <div class="col-2">
-                           <a href="../assets/uploads/<?= $user['email'] ?>/<?= $file['nama_file'] ?>" class="btn btn-rounded btn-primary mb-3">Download</a>
-                        </div>
-                        <div class="col">
-                           <form action="share_file.php">
-                              <button type="submit" class="btn btn-outline-primary btn-rounded btn-icon">
-                                 <i class="mdi mdi-share"></i>
-                              </button>
-                           </form>
-                        </div>
-                     </div>
+                     <button onclick="window.location.href='../assets/uploads/<?= $user['email'] ?>/<?= $file['nama_file'] ?>';" class="btn btn-rounded btn-primary mr-2">Download</button>
+                     <button type="submit" onclick="window.location.href='share_file.php';" class="btn btn-outline-secondary btn-rounded btn-icon">
+                        <i class="mdi mdi-share"></i>
+                     </button>
                   </div>
                </div>
             </div>

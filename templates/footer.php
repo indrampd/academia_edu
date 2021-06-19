@@ -3,7 +3,7 @@
    <div class="container-fluid clearfix">
       <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">
          &copy; <?= date('Y'); ?>
-         <a href="https://www.sttgarut.ac.id/" class="font-weight-bold ml-1" target="_blank">Sekolah Tinggi Teknologi Garut</a>
+         <a href="https://www.sttgarut.ac.id/" class="font-weight-bold ml-1 text-primary" target="_blank">Sekolah Tinggi Teknologi Garut</a>
       </span>
    </div>
 </footer>

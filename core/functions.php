@@ -103,7 +103,80 @@ function updateUser($username, $email, $role_id, $status, $user_id)
 
 
 
+function do_follow($id_user, $id_user_followed)
+{
+   global $conn;
 
+   $result = mysqli_query($conn, "INSERT INTO tbl_data_follow VALUES('','$id_user','$id_user_followed')");
+
+   if (mysqli_affected_rows($conn) > 0) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+function do_unfollow($id_user, $id_user_followed)
+{
+   global $conn;
+
+   $result = mysqli_query($conn, "DELETE FROM tbl_data_follow WHERE user_follower = '$id_user' AND user_followed = '$id_user_followed'");
+
+   if (mysqli_affected_rows($conn) > 0) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+function isFollowed($id_user, $id_user_followed)
+{
+   global $conn;
+
+   $result = mysqli_query($conn, "SELECT * FROM tbl_data_follow WHERE user_follower = '$id_user' AND user_followed = '$id_user_followed'");
+   if (mysqli_fetch_assoc($result)) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+function followers($user_id)
+{
+   global $conn;
+
+   $result = mysqli_query($conn, "SELECT * FROM tbl_data_follow WHERE user_followed = '$user_id'");
+
+   return mysqli_num_rows($result);
+}
+
+function following($user_id)
+{
+   global $conn;
+
+   $result = mysqli_query($conn, "SELECT * FROM tbl_data_follow WHERE user_follower = '$user_id'");
+
+   return mysqli_num_rows($result);
+}
+
+function btn_follow($id_session, $user_id)
+{
+   if ($id_session != $user_id) {
+      if (isFollowed($id_session, $user_id)) {
+         echo "
+         <a href='?unfollow=1&id=$id_session&followed=$user_id' class='mr-2 text-success'>
+            <i class='mdi mdi-check-circle'></i>
+            <span>Followed</span>
+         </a>";
+      } else {
+         echo "
+         <a href='?follow=1&id=$id_session&followed=$user_id' class='mr-2 text-info'>
+            <i class='mdi mdi-plus-circle'></i>
+            <span>Follow</span>
+         </a>";
+      }
+   }
+}
 
 function status($string)
 {
@@ -121,7 +194,7 @@ function privasi($string)
    if ($string == 1) {
       $data = "<label class='badge badge-secondary'>Pribadi</label>";
    } else {
-      $data = "<label class='badge badge-success'>Publik</label>";
+      $data = "<label class='badge badge-info'>Publik</label>";
    }
 
    return $data;
