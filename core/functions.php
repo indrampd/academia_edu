@@ -165,6 +165,15 @@ function following($user_id)
    return mysqli_num_rows($result);
 }
 
+function uploaded($user_id)
+{
+   global $conn;
+
+   $result = mysqli_query($conn, "SELECT * FROM `tbl_file` WHERE `user_id` = '$user_id'");
+
+   return mysqli_num_rows($result);
+}
+
 function btn_follow($id_session, $user_id)
 {
    if ($id_session != $user_id) {
@@ -177,6 +186,25 @@ function btn_follow($id_session, $user_id)
       } else {
          echo "
          <a href='?follow=1&id=$id_session&followed=$user_id' class='mr-2 text-primary'>
+            <i class='mdi mdi-plus-circle'></i>
+            <span>Follow</span>
+         </a>";
+      }
+   }
+}
+
+function btn_follow_rounded($id_session, $user_id)
+{
+   if ($id_session != $user_id) {
+      if (isFollowed($id_session, $user_id)) {
+         echo "
+         <a href='?unfollow=1&id=$id_session&followed=$user_id' class='btn btn-sm btn-rounded btn-success'>
+            <i class='mdi mdi-check-circle'></i>
+            <span>Followed</span>
+         </a>";
+      } else {
+         echo "
+         <a href='?follow=1&id=$id_session&followed=$user_id' class='btn btn-sm btn-rounded btn-outline-secondary'>
             <i class='mdi mdi-plus-circle'></i>
             <span>Follow</span>
          </a>";

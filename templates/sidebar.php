@@ -55,7 +55,7 @@
          </div>
       </li>
       <li class="nav-item">
-         <a class="nav-link" href="../menu/friend_list.php">
+         <a class="nav-link" href="../menu/users.php">
             <span class="menu-title">Friends List</span>
             <i class="mdi mdi-account-search menu-icon"></i>
          </a>
