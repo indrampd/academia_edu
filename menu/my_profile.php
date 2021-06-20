@@ -28,6 +28,51 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
    }
 }
 
+if (isset($_POST['submit'])) {
+
+   if ($_FILES['upload']['name'] != "") {
+      $user_id = $_POST['user_id'];
+
+      $file_lama = $_POST['image'];
+      $file = $_FILES['upload'];
+
+      $file_baru = $file['name'];
+      $file_temp = $file['tmp_name'];
+      $file_size = $file['size'];
+      $name = explode('.', $file_baru);
+      $path = "../assets/profile/" . $file_baru;
+
+      // cek jika ukurannya terlalu besar
+      if ($file_size > 1000000) {
+         echo "<script>
+				alert('ukuran file terlalu besar!');
+				location.href='my_profile.php';
+			  </script>";
+         return false;
+      } else {
+         $update = $conn->query("UPDATE `tbl_user` SET `image` = '$file_baru' WHERE `user_id` = $user_id");
+         if ($update) {
+            if ($file_lama != "default.png") {
+               unlink("../assets/profile/" . $file_lama);
+               move_uploaded_file($file_temp, $path);
+               echo "<script>alert('Foto Profil Berhasil Diubah!');</script>";
+               echo "<script>window.location='my_profile.php'</script>";
+            } else {
+               move_uploaded_file($file_temp, $path);
+               echo "<script>alert('Foto Profil Berhasil Diubah!');</script>";
+               echo "<script>window.location='my_profile.php'</script>";
+            }
+         } else {
+            echo "<script>alert('Gagal Diubah!')</script>";
+            echo "<script>window.location='my_profile.php'</script>";
+         }
+      }
+   } else {
+      echo "<script>alert('Required Field!')</script>";
+      echo "<script>window.location='my_profile.php'</script>";
+   }
+}
+
 include '../templates/header.php';  // 1
 include '../templates/navbar.php';  // 2
 include '../templates/sidebar.php'; // 3
@@ -54,9 +99,9 @@ include '../templates/sidebar.php'; // 3
                <div class="card-body">
                   <h4 class="card-title mb-4">Detail Profile</h4>
                   <hr class="mb-3">
-                  <form class="forms-sample">
+                  <form class="forms-sample" method="POST" enctype="multipart/form-data">
                      <div class="row d-flex flex-column text-center align-items-sm-center mb-4">
-                        <img src="../assets/profile/<?= $user['image'] ?>" class="rounded-circle" width="150px" height="150px" alt="">
+                        <img src="../assets/profile/<?= $user['image'] ?>" style="object-fit: cover;" class="rounded-circle" width="150px" height="150px" alt="">
                      </div>
                      <p class="card-text text-center mb-3">
                         <?= $user['username'] ?>
@@ -67,10 +112,13 @@ include '../templates/sidebar.php'; // 3
                         <small><b><?= following($user['user_id']) ?></b> Following </small>
                      </p>
                      <div class="row d-flext flex-column text-center align-items-sm-center ">
-                        <a href=""><span class="btn btn-outline-secondary btn-rounded btn-sm">Ubah Foto Profile</span></a>
+                        <label for="fileImage" class="btn btn-outline-secondary btn-rounded btn-sm">Ubah Foto Profile</label>
+                        <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                        <input type="hidden" name="image" value="<?= $user['image'] ?>">
+                        <input type="file" id="fileImage" name="upload" class="custom-file-input" multiple onchange="submitForm()" hidden>
                      </div>
-
-
+                     <button id="submit" type="submit" name="submit" hidden></button>
+                  </form>
                </div>
             </div>
          </div>
@@ -121,7 +169,7 @@ include '../templates/sidebar.php'; // 3
                      <hr>
                      <p class="card-text">
                         <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
-                        <a href="<?= ($_SESSION['user_id'] == $user['user_id']) ? `my_profile.php` : "profile.php?id=" . $file['user_id']; ?>">
+                        <a href="profile.php?id=<?= $file['user_id']; ?>">
                            <span class="text-muted mr-2"> <?= $user['username'] ?></span>
                         </a>
                         <?php

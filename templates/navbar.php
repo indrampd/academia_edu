@@ -149,8 +149,8 @@ if (isset($_POST['search'])) {
                </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-               <a class="dropdown-item" href="#">
-                  <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
+               <a class="dropdown-item" href="my_profile.php">
+                  <i class="mdi mdi-account mr-2 text-success"></i> Profile Akun </a>
                <div class="dropdown-divider"></div>
                <a class="dropdown-item" href="../auth/logout.php">
                   <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>

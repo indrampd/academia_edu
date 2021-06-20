@@ -13,6 +13,10 @@ $user_id = $_GET['id'];
 $user = get_where("tbl_user", "user_id", $user_id);
 $files = query_assoc("SELECT * FROM `tbl_file` WHERE `user_id`= $user_id");
 
+if ($_SESSION['user_id'] == $user_id) {
+   header("location: my_profile.php");
+}
+
 if (isset($_GET['id']) && isset($_GET['followed'])) {
 
    if (isset($_GET['follow'])) {
@@ -29,6 +33,8 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
       }
    }
 }
+
+
 
 include '../templates/header.php';  // 1
 include '../templates/navbar.php';  // 2
@@ -68,7 +74,7 @@ include '../templates/sidebar.php'; // 3
                      <small><b><?= following($user['user_id']) ?></b> Following </small>
                   </p>
                   <div class="row d-flext flex-column text-center align-items-sm-center ">
-                     <a href=""><span class="btn btn-outline-secondary btn-rounded btn-sm">Ubah Foto Profile</span></a>
+                     <a href=""><span class="btn btn-outline-secondary btn-rounded btn-sm">Follow</span></a>
                   </div>
 
 
@@ -90,7 +96,7 @@ include '../templates/sidebar.php'; // 3
                      <hr>
                      <p class="card-text">
                         <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
-                        <a href="<?= ($_SESSION['user_id'] == $user['user_id']) ? `my_profile.php` : "profile.php?id=" . $file['user_id']; ?>">
+                        <a href="profile.php?id=<?= $file['user_id']; ?>">
                            <span class="text-muted mr-2"> <?= $user['username'] ?>
                            </span></a>
                         <?php

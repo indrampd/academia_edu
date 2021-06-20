@@ -67,7 +67,7 @@ include '../templates/auth_header.php';
                         <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password" required>
                      </div>
                      <div class="form-group">
-                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Konpirmasi Password" name="password2" required>
+                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Konfirmasi Password" name="password2" required>
                      </div>
                      <div class="mt-3">
                         <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" name="btn-signup">SIGN UP</button>

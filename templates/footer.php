@@ -49,6 +49,16 @@
          }
       });
    });
+
+   function uploadFileImage() {
+      document.getElementById('fileImage').click();
+      return false;
+   }
+
+   function submitForm() {
+      var submit = document.getElementById('submit');
+      submit.click();
+   }
 </script>
 
 <!-- End custom js for this page -->

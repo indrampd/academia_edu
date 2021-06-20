@@ -108,32 +108,6 @@ include '../templates/sidebar.php'; // 3
 
 
 
-
-		<!-- <div class="card form" id="form4">
-			<div class="card-header">
-				<center>
-					<h3>Upload papers</h3>
-				</center>
-			</div>
-			<br>
-			<div class="panel panel-default">
-				<?= $pesan ?>
-
-				<div class="panel-body">
-					<center>
-						<form method="POST" enctype="multipart/form-data">
-							<div class="btn btn-gradient-danger btn-icon-text"> <span class="glyphicon glyphicon-folder-open"></span> <span class="mdi mdi-upload btn-icon-prepend">Silahkan upload dokumen</span>
-								<input type="file" name="file" id="file" accept="application/pdf" />
-							</div>
-							<div class="mt-3">
-								<button type="submit" class="btn btn-outline-danger btn-icon-text" name="upload-data"><i class="mdi mdi-upload btn-icon-prepend"></i> Upload</button>
-						</form>
-					</center>
-				</div>
-			</div>
-		</div> -->
-
-
 	</div>
 	<!-- akhir konten -->
 

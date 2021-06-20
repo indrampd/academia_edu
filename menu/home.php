@@ -25,14 +25,6 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
    }
 }
 
-// $user_id = $_SESSION['user_id'];
-
-// $fileSearch = query_assoc("SELECT * FROM `tbl_file` WHERE `user_id`=$user_id");
-
-// if (isset($_POST['search'])) {
-//    $fileSearch = searchFiles($_POST['keyword']);
-// }
-
 
 include '../templates/header.php';  // 1
 include '../templates/navbar.php';  // 2
@@ -68,7 +60,7 @@ include '../templates/sidebar.php'; // 3
                      <hr>
                      <p class="card-text">
                         <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
-                        <a href="<?= ($_SESSION['user_id'] == $user['user_id']) ? `my_profile.php` : "profile.php?id=" . $file['user_id']; ?>">
+                        <a href="profile.php?id=<?= $file['user_id']; ?>">
                            <span class="text-muted mr-2"> <?= $user['username'] ?></span>
                         </a>
                         <?php

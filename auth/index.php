@@ -54,7 +54,7 @@ if (isset($_POST['btn-login'])) {
 
       header("location: ./index.php");
    } else {
-      $message = "<label>Username atau Password Salah!</label>";
+      $message = "<label>Username tidak temukan atau password salah!</label>";
    }
 }
 
