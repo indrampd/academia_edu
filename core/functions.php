@@ -282,3 +282,15 @@ function upload($judul, $deskripsi)
       }
    }
 }
+
+function updateFile($judul, $deskripsi, $privasi, $file_id)
+{
+   global $conn;
+
+   $date_created = time();
+
+
+   $data = $conn->query("UPDATE `db_academia`.`tbl_file` SET `judul` = '$judul' , `deskripsi` = '$deskripsi' , `privasi` = '$privasi' , `date_created` = '$date_created'  WHERE `file_id` = $file_id");
+
+   return $data;
+}

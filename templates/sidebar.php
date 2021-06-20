@@ -49,7 +49,7 @@
          <div class="collapse" id="file-management">
             <ul class="nav flex-column sub-menu">
                <li class="nav-item"> <a class="nav-link" href="../menu/my_files.php">My Files</a></li>
-               <!-- <li class="nav-item"> <a class="nav-link" href="../menu/share_file.php">Share File</a></li> -->
+               <li class="nav-item"> <a class="nav-link" href="../menu/share_file.php">Share File</a></li>
                <li class="nav-item"> <a class="nav-link" href="../menu/upload_file.php">Upload File</a></li>
             </ul>
          </div>

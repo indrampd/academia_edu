@@ -110,7 +110,7 @@ include '../templates/sidebar.php'; // 3
                         </div>
                      </div>
                      <button type="submit" class="btn btn-gradient-primary mr-2" name="btn-update">Submit</button>
-                     <button class="btn btn-gradient-danger" type="reset">Reset</button>
+                     <button class="btn btn-gradient-light" type="reset">Reset</button>
                   </form>
                </div>
             </div>
