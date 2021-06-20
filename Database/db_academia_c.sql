@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2021 pada 14.20
+-- Waktu pembuatan: 20 Jun 2021 pada 16.52
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.4.13
 
@@ -38,9 +38,9 @@ CREATE TABLE `tbl_data_follow` (
 --
 
 INSERT INTO `tbl_data_follow` (`follow_id`, `user_follower`, `user_followed`) VALUES
-(23, 1, 2),
 (24, 3, 2),
-(32, 2, 3);
+(32, 2, 3),
+(34, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ INSERT INTO `tbl_role` (`role_id`, `role`) VALUES
 CREATE TABLE `tbl_shared_file` (
   `shared_id` int(11) NOT NULL,
   `file_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_share` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -167,7 +167,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT untuk tabel `tbl_data_follow`
 --
 ALTER TABLE `tbl_data_follow`
-  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_file`

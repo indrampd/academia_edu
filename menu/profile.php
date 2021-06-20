@@ -109,10 +109,10 @@ include '../templates/sidebar.php'; // 3
                               btn_follow($_SESSION['user_id'], $file['user_id']);
                               btn_message($_SESSION['user_id'], $file['user_id']);
                               ?>
-                              <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
+                              <!-- <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
                                  <i class="mdi mdi-message"></i>
                                  <span>Pesan</span>
-                              </a>
+                              </a> -->
                            </p>
                            <p class="card-text text-dark"><?= $file['deskripsi'] ?></p>
                            <p class="card-text">

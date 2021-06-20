@@ -90,30 +90,6 @@ function updateUser($username, $email, $role_id, $status, $user_id)
    return $data;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function do_share($file, $user)
 {
    global $conn;
@@ -234,7 +210,7 @@ function btn_message($id_session, $user_id)
 {
    if ($id_session != $user_id) {
       echo "
-      <a href='?id=$user_id' class='mr-2 text-primary'>
+      <a href='message.php?id=$user_id' class='mr-2 text-primary'>
          <i class='mdi mdi-message'></i>
          <span>Pesan</span>
       </a>";
