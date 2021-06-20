@@ -5,11 +5,12 @@ session_start();
 include '../core/autoload.php';
 require '../core/functions.php';
 
+$pesan = "";
+
 if (!isset($_SESSION['user_id'])) {
    header("location: ../auth");
 }
 
-$files = query_assoc("SELECT * FROM `tbl_file`  WHERE `privasi` = 2 ");
 if (isset($_GET['id']) && isset($_GET['followed'])) {
 
    if (isset($_GET['follow'])) {
@@ -24,6 +25,25 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
       }
    }
 }
+$files = query_assoc("SELECT * FROM `tbl_file`  WHERE `privasi` = 2 ");
+
+if (isset($_POST['search'])) {
+   $keyword = $_POST['s_keyword'];
+   $kategori = $_POST['s_kategori'];
+   if (isset($_POST['s_keyword']) && isset($_POST['s_kategori']) != "") {
+      $files = query_assoc("SELECT * FROM `tbl_file` WHERE `judul` LIKE '%$keyword%' AND `tipe_file` LIKE '%$kategori%'");
+   } else {
+      $files = query_assoc("SELECT * FROM `tbl_file` WHERE `judul` LIKE '%$keyword%'");
+   }
+
+   if ($files) {
+      $pesan = "<p class='card-text' role='alert'>Menampilkan beberapa hasil dengan kategori <b>$kategori</b> </p>";
+   } else {
+      echo "<script>alert('Data Tidak Ditemukan!')</script>";
+      echo "<script>window.location='home.php'</script>";
+   }
+}
+
 
 
 include '../templates/header.php';  // 1
@@ -47,6 +67,7 @@ include '../templates/sidebar.php'; // 3
       <!-- akhir header -->
       <!--  -->
       <div class="row justify-content-center">
+         <?= $pesan ?>
          <?php
          foreach ($files as $file) :
             $user = get_where("tbl_user", "user_id", $file['user_id']);
@@ -55,7 +76,8 @@ include '../templates/sidebar.php'; // 3
                <div class="card">
                   <div class="card-body">
                      <a href="">
-                        <h5 class="card-title"><?= $file['judul'] ?></h5>
+                        <h5 class="card-title"><?= $file['judul'] ?> | <?= $file['tipe_file'] ?>
+                        </h5>
                      </a>
                      <hr>
                      <p class="card-text">

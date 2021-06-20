@@ -101,7 +101,13 @@ function updateUser($username, $email, $role_id, $status, $user_id)
 
 
 
+// function searchFiles($keyword, $kategori = false)
+// {
 
+//    $files = query_assoc("SELECT * FROM `tbl_file` WHERE `nama_file` LIKE '%$keyword%' OR `deskripsi` LIKE '%$keyword%' OR `tipe_file` LIKE '%$kategori%'");
+//    return $files;
+//    // $query = "SELECT * FROM tbl_file WHERE nama_file LIKE '%$keyword%' OR tipe_file LIKE '%$keyword%' OR ukuran_file LIKE '%$keyword%' OR waktu_upload LIKE '%$keyword%'";
+// }
 
 function do_follow($id_user, $id_user_followed)
 {

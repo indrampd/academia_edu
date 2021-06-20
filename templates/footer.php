@@ -59,6 +59,29 @@
       var submit = document.getElementById('submit');
       submit.click();
    }
+
+   function keywordFile() {
+      document.getElementById('keyword').click();
+      return false;
+   }
+
+   function searchFile() {
+      var button = document.getElementById('search');
+      button.click();
+   }
+
+   var input = document.getElementById("s_keyword");
+   input.addEventListener("change", function(event) {
+      event.preventDefault();
+      document.getElementById("search").click();
+      // if (event.keyCode === 13) {
+      // }
+   });
+
+   var select = document.getElementById('s_kategori');
+   select.addEventListener("change", function(event) {
+      document.getElementById("search").click();
+   });
 </script>
 
 <!-- End custom js for this page -->

@@ -27,24 +27,39 @@ if (isset($_POST['search'])) {
          <span class="mdi mdi-menu"></span>
       </button>
       <div class="search-field col-5 d-none d-md-block">
-         <form class="d-flex align-items-center h-100" action="#" method="post">
+         <form class="d-flex align-items-center h-100" action="home.php" method="post">
             <div class="input-group ">
                <div class="input-group-prepend bg-transparent">
                   <i class="input-group-text border-0 mdi mdi-magnify"></i>
                </div>
+
                <input type="text" class="form-control bg-transparent border-0 search-form" placeholder="Search" type="text" name="s_keyword" id="s_keyword" value="<?php echo $s_keyword; ?>">
+
                <div class="input-group-prepend bg-transparent">
                   <select name="s_kategori" id="s_kategori" class="form-control">
-                     <option value="">Filter</option>
+                     <option value="" selected>Filter</option>
                      <option value="pdf" <?php if ($s_kategori == "pdf") {
                                              echo "selected";
                                           } ?>>PDF</option>
                      <option value="pptx" <?php if ($s_kategori == "pptx") {
                                              echo "selected";
                                           } ?>>PPTX</option>
+                     <option value="docx" <?php if ($s_kategori == "docx") {
+                                             echo "selected";
+                                          } ?>>DOCX</option>
+                     <option value="png" <?php if ($s_kategori == "png") {
+                                             echo "selected";
+                                          } ?>>PNG</option>
+                     <option value="jpg" <?php if ($s_kategori == "jpg") {
+                                             echo "selected";
+                                          } ?>>JPG</option>
+                     <option value="jpeg" <?php if ($s_kategori == "jpeg") {
+                                             echo "selected";
+                                          } ?>>JPEG</option>
                   </select>
                </div>
             </div>
+            <button type="submit" id="search" name="search" hidden></button>
          </form>
       </div>
       <ul class="navbar-nav navbar-nav-right">
