@@ -105,16 +105,16 @@ include '../templates/sidebar.php'; // 3
                               </div>
                               <div class="modal-body mb-5">
                                  <hr class="mb-3">
-                                 <div class="row">
-                                    <?php
-                                    foreach ($datas as $data) { ?>
-                                       <div class="col text-center">
+                                 <?php
+                                 foreach ($datas as $data) { ?>
+                                    <div class="row mb-3">
+                                       <div class="col ml-5 text-left">
                                           <p class="card-text">
                                              <img src="../assets/profile/<?= $data['image'] ?>" alt="profile" style="width: 40px; height: 40px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
                                              <?= $data['username'] ?>
                                           </p>
                                        </div>
-                                       <div class="col text-center">
+                                       <div class="col mr-5 text-right">
                                           <form action="share_file.php" method="post">
                                              <input type="text" name="user_id" value="<?= $data['user_id'] ?>" hidden>
                                              <input type="number" name="file_id" value="<?= $file['file_id'] ?>" hidden>
@@ -125,8 +125,8 @@ include '../templates/sidebar.php'; // 3
                                              </p>
                                           </form>
                                        </div>
-                                    <?php } ?>
-                                 </div>
+                                    </div>
+                                 <?php } ?>
                               </div>
                               <hr>
                            </div>

@@ -27,10 +27,10 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
 }
 
 if (isset($_POST['share']) && isset($_POST['file_id'])) {
-   $user = $_POST['user_id'];
-   $file = $_POST['file_id'];
+   $user_id = $_POST['user_id'];
+   $file_id = $_POST['file_id'];
 
-   $share = do_share($file, $user);
+   $share = do_share($file_id, $user_id);
 
    if ($share) {
       echo "<script>alert('data berhasil ditambahkan!'); location.href='home.php'</script>";
@@ -40,12 +40,15 @@ if (isset($_POST['share']) && isset($_POST['file_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$file_id = get_where("tbl_shared_file", "user_id", $user_id);
-if (!$file_id) {
-   $files = query_assoc("SELECT * FROM `tbl_file`  WHERE `user_id` = $user_id");
-} else {
-   $files = query_assoc("SELECT * FROM `tbl_file`  WHERE `file_id` = $file_id");
-}
+
+$files = query_assoc("SELECT * FROM `tbl_file`  WHERE `user_id` = $user_id");
+
+// $file = $conn->query("SELECT * FROM tbl_shared_file WHERE `user_id` = $user_id");
+// if (mysqli_num_rows($file) == 0) {
+//    $files = query_assoc("SELECT * FROM `tbl_file`  WHERE `user_id` = $user_id");
+// } else {
+//    $files = query_assoc("SELECT * FROM `tbl_file`");
+// }
 
 
 include '../templates/header.php';  // 1

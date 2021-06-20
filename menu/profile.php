@@ -57,74 +57,80 @@ include '../templates/sidebar.php'; // 3
       <div class="row justify-content-end">
 
          <!-- profile -->
-         <div class="col-md-4">
-            <div class="card">
-               <div class="card-body">
-                  <h4 class="card-title mb-4">Detail Profile</h4>
-                  <hr class="mb-3">
-                  <div class="row d-flex flex-column text-center align-items-sm-center mb-4">
-                     <img src="../assets/profile/<?= $user['image'] ?>" class="rounded-circle" width="150px" height="150px" alt="">
-                  </div>
-                  <p class="card-text text-center mb-3">
-                     <?= $user['username'] ?>
-                  </p>
-                  <p class="card-text text-center mb-3">
-                     <small><b><?= followers($user['user_id']) ?></b> Followers </small>
-                     <small class="text-muted"> | </small>
-                     <small><b><?= following($user['user_id']) ?></b> Following </small>
-                  </p>
-                  <div class="row d-flext flex-column text-center align-items-sm-center ">
-                     <a href=""><span class="btn btn-outline-secondary btn-rounded btn-sm">Follow</span></a>
-                  </div>
-
-
-               </div>
-            </div>
-         </div>
-         <!-- end profile -->
-
-         <?php
-         foreach ($files as $file) :
-            $user = get_where("tbl_user", "user_id", $file['user_id']);
-         ?>
-            <div class="col-sm-8 mb-4">
+         <?php if (uploaded($user['user_id']) == 0) { ?>
+            <div class="col-md-12">
+            <?php } else { ?>
+               <div class="col-md-4">
+               <?php }  ?>
                <div class="card">
                   <div class="card-body">
-                     <a href="">
-                        <h5 class="card-title"><?= $file['judul'] ?></h5>
-                     </a>
-                     <hr>
-                     <p class="card-text">
-                        <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
-                        <a href="profile.php?id=<?= $file['user_id']; ?>">
-                           <span class="text-muted mr-2"> <?= $user['username'] ?>
-                           </span></a>
-                        <?php
-                        btn_follow($_SESSION['user_id'], $file['user_id']);
-                        btn_message($_SESSION['user_id'], $file['user_id']);
-                        ?>
-                        <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
-                           <i class="mdi mdi-message"></i>
-                           <span>Pesan</span>
-                        </a>
+                     <h4 class="card-title mb-4">Detail Profile</h4>
+                     <hr class="mb-3">
+                     <div class="row d-flex flex-column text-center align-items-sm-center mb-4">
+                        <img src="../assets/profile/<?= $user['image'] ?>" class="rounded-circle" width="150px" height="150px" alt="">
+                     </div>
+                     <p class="card-text text-center mb-3">
+                        <?= $user['username'] ?>
                      </p>
-                     <p class="card-text text-dark"><?= $file['deskripsi'] ?></p>
-                     <p class="card-text">
-                        <small class="text-muted">Terakhir diubah <?= date('d F Y', $file['date_created']) ?></small>
+                     <p class="card-text text-center mb-3">
+                        <small><b><?= followers($user['user_id']) ?></b> Followers </small>
+                        <small class="text-muted"> | </small>
+                        <small><b><?= following($user['user_id']) ?></b> Following </small>
+                        <small class="text-muted"> | </small>
+                        <small><b><?= uploaded($user['user_id']) ?></b> Uploaded </small>
                      </p>
-                     <hr>
-                     <button onclick="window.location.href='../assets/uploads/<?= $user['email'] ?>/<?= $file['nama_file'] ?>';" class="btn btn-rounded btn-primary mr-2">Download</button>
-                     <button type="submit" onclick="window.location.href='share_file.php';" class="btn btn-outline-primary btn-rounded btn-icon">
-                        <i class="mdi mdi-share"></i>
-                     </button>
+                     <div class="row d-flext flex-column text-center align-items-sm-center ">
+                        <?php btn_follow_rounded($_SESSION['user_id'], $user['user_id']); ?>
+                     </div>
+
+
                   </div>
                </div>
+               </div>
+               <!-- end profile -->
+
+               <?php
+               foreach ($files as $file) :
+                  $user = get_where("tbl_user", "user_id", $file['user_id']);
+               ?>
+                  <div class="col-sm-8 mb-4">
+                     <div class="card">
+                        <div class="card-body">
+                           <a href="">
+                              <h5 class="card-title"><?= $file['judul'] ?></h5>
+                           </a>
+                           <hr>
+                           <p class="card-text">
+                              <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 20px; height: 20px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
+                              <a href="profile.php?id=<?= $file['user_id']; ?>">
+                                 <span class="text-muted mr-2"> <?= $user['username'] ?>
+                                 </span></a>
+                              <?php
+                              btn_follow($_SESSION['user_id'], $file['user_id']);
+                              btn_message($_SESSION['user_id'], $file['user_id']);
+                              ?>
+                              <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
+                                 <i class="mdi mdi-message"></i>
+                                 <span>Pesan</span>
+                              </a>
+                           </p>
+                           <p class="card-text text-dark"><?= $file['deskripsi'] ?></p>
+                           <p class="card-text">
+                              <small class="text-muted">Terakhir diubah <?= date('d F Y', $file['date_created']) ?></small>
+                           </p>
+                           <hr>
+                           <button onclick="window.location.href='../assets/uploads/<?= $user['email'] ?>/<?= $file['nama_file'] ?>';" class="btn btn-rounded btn-primary mr-2">Download</button>
+                           <button type="submit" onclick="window.location.href='share_file.php';" class="btn btn-outline-primary btn-rounded btn-icon">
+                              <i class="mdi mdi-share"></i>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               <?php endforeach ?>
+
             </div>
-         <?php endforeach ?>
-
       </div>
-   </div>
 
-   <!-- akhir konten -->
+      <!-- akhir konten -->
 
-   <?php include '../templates/footer.php' ?>
+      <?php include '../templates/footer.php' ?>
