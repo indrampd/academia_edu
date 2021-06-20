@@ -28,6 +28,21 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
    }
 }
 
+if (isset($_POST['edit'])) {
+   $user_id  = $_SESSION['user_id'];
+   $username = $_POST['username'];
+   $password = $_POST['password'];
+   $hash = md5($password);
+
+   $edit = $conn->query("UPDATE `tbl_user` SET `username` = '$username' , `password` = '$hash' WHERE `user_id` = '$user_id' ");
+
+   if ($edit) {
+      echo "<script>alert('Data Berhasil Diubah!'); location.href='my_profile.php'</script>";
+   } else {
+      echo "<script>alert('Data Gagal Diubah!')</script>";
+   }
+}
+
 if (isset($_POST['submit'])) {
 
    if ($_FILES['upload']['name'] != "") {
@@ -127,29 +142,30 @@ include '../templates/sidebar.php'; // 3
          <div class="col-md-8 grid-margin stretch-card">
             <div class="card">
                <div class="card-body">
-                  <h4 class="card-title mb-4">Ubah Profile</h4>
-                  <hr class="mb-4">
-                  <!-- <p class="card-description"> Horizontal form layout </p> -->
-                  <div class="form-group row">
-                     <label for="email" class="col-sm-3 col-form-label">Email</label>
-                     <div class="col-sm-9">
-                        <input type="email" class="form-control" id="email" placeholder="Username" value="<?= $user['email'] ?>" name="email" disabled>
+                  <form class="forms-sample" method="POST">
+                     <h4 class="card-title mb-4">Ubah Profile</h4>
+                     <hr class="mb-4">
+                     <!-- <p class="card-description"> Horizontal form layout </p> -->
+                     <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                           <input type="email" class="form-control" id="email" placeholder="Username" value="<?= $user['email'] ?>" name="email" disabled>
+                        </div>
                      </div>
-                  </div>
-                  <div class="form-group row">
-                     <label for="username" class="col-sm-3 col-form-label">Nama Akun</label>
-                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="username" placeholder="Email" value="<?= $user['username'] ?>" name="username">
+                     <div class="form-group row">
+                        <label for="username" class="col-sm-3 col-form-label">Nama Akun</label>
+                        <div class="col-sm-9">
+                           <input type="text" class="form-control" id="username" placeholder="Email" value="<?= $user['username'] ?>" name="username">
+                        </div>
                      </div>
-                  </div>
-                  <div class="form-group row">
-                     <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password</label>
-                     <div class="col-sm-9">
-                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                           <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="password">
+                        </div>
                      </div>
-                  </div>
-                  <button type="submit" class="btn btn-success btn-rounded mr-2">Submit</button>
-                  <button class="btn btn-light btn-rounded">Cancel</button>
+                     <button type="submit" class="btn btn-success btn-rounded mr-2" name="edit">Edit</button>
+                     <button class="btn btn-light btn-rounded">Cancel</button>
                   </form>
                </div>
             </div>
@@ -174,11 +190,12 @@ include '../templates/sidebar.php'; // 3
                         </a>
                         <?php
                         btn_follow($_SESSION['user_id'], $file['user_id']);
+                        btn_message($_SESSION['user_id'], $file['user_id']);
                         ?>
-                        <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
+                        <!-- <a href="?id=<?= $user['user_id'] ?>" class="mr-2 text-primary">
                            <i class="mdi mdi-message"></i>
                            <span>Pesan</span>
-                        </a>
+                        </a> -->
                      </p>
                      <p class="card-text text-dark"><?= $file['deskripsi'] ?></p>
                      <p class="card-text">

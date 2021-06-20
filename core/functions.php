@@ -184,6 +184,17 @@ function btn_follow($id_session, $user_id)
    }
 }
 
+function btn_message($id_session, $user_id)
+{
+   if ($id_session != $user_id) {
+      echo "
+      <a href='?id=$user_id' class='mr-2 text-primary'>
+         <i class='mdi mdi-message'></i>
+         <span>Pesan</span>
+      </a>";
+   }
+}
+
 function status($string)
 {
    if ($string == 1) {
