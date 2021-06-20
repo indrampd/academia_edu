@@ -122,6 +122,18 @@ function updateUser($username, $email, $role_id, $status, $user_id)
 //    // $query = "SELECT * FROM tbl_file WHERE nama_file LIKE '%$keyword%' OR tipe_file LIKE '%$keyword%' OR ukuran_file LIKE '%$keyword%' OR waktu_upload LIKE '%$keyword%'";
 // }
 
+function do_share($file, $user)
+{
+   global $conn;
+
+   $result = mysqli_query($conn, "INSERT INTO tbl_shared_file VALUES('','$file','$user')");
+
+   if (mysqli_affected_rows($conn) > 0) {
+      return true;
+   } else {
+      return false;
+   }
+}
 function do_follow($id_user, $id_user_followed)
 {
    global $conn;

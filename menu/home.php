@@ -25,6 +25,9 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
       }
    }
 }
+
+
+
 $files = query_assoc("SELECT * FROM `tbl_file` WHERE `privasi` = 2 ");
 $user_id = $_SESSION['user_id'];
 $datas = query_assoc("SELECT * FROM `tbl_user` WHERE NOT `user_id` = $user_id AND NOT `role_id` = 1");
@@ -103,7 +106,8 @@ include '../templates/sidebar.php'; // 3
                               <div class="modal-body mb-5">
                                  <hr class="mb-3">
                                  <div class="row">
-                                    <?php foreach ($datas as $data) { ?>
+                                    <?php
+                                    foreach ($datas as $data) { ?>
                                        <div class="col text-center">
                                           <p class="card-text">
                                              <img src="../assets/profile/<?= $data['image'] ?>" alt="profile" style="width: 40px; height: 40px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
@@ -111,11 +115,15 @@ include '../templates/sidebar.php'; // 3
                                           </p>
                                        </div>
                                        <div class="col text-center">
-                                          <p class="card-text">
-                                             <button type="submit" class="btn btn-primary btn-rounded btn-icon">
-                                                <i class="mdi mdi-share"></i>
-                                             </button>
-                                          </p>
+                                          <form action="share_file.php" method="post">
+                                             <input type="text" name="user_id" value="<?= $data['user_id'] ?>" hidden>
+                                             <input type="number" name="file_id" value="<?= $file['file_id'] ?>" hidden>
+                                             <p class="card-text">
+                                                <button type="submit" name="share" class="btn btn-primary btn-rounded btn-icon">
+                                                   <i class="mdi mdi-share"></i>
+                                                </button>
+                                             </p>
+                                          </form>
                                        </div>
                                     <?php } ?>
                                  </div>

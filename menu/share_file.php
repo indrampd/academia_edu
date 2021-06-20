@@ -26,6 +26,19 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
    }
 }
 
+if (isset($_POST['share']) && isset($_POST['file_id'])) {
+   $user = $_POST['user_id'];
+   $file = $_POST['file_id'];
+
+   $share = do_share($file, $user);
+
+   if ($share) {
+      echo "<script>alert('data berhasil ditambahkan!'); location.href='home.php'</script>";
+   } else {
+      echo " <script>alert('data gagal ditambahkan!');</script>";
+   }
+}
+
 $user_id = $_SESSION['user_id'];
 $file_id = get_where("tbl_shared_file", "user_id", $user_id);
 if (!$file_id) {
