@@ -32,6 +32,19 @@ function query_assoc($sql)
    return $data;
 }
 
+function query_assoc_join($sql)
+{
+   global $conn;
+
+   $result = $conn->query($sql);
+   $row_data = [];
+   while ($row_data = mysqli_fetch_array($result)) {
+      $row_data[0];
+   }
+
+   return $row_data[0];
+}
+
 function delete($id)
 {
    global $conn;

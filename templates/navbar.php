@@ -9,9 +9,25 @@ $user_session = get_where("tbl_user", "user_id", $_SESSION['user_id']);
 
 $s_kategori = "";
 $s_keyword = "";
+
 if (isset($_POST['search'])) {
    $s_kategori = $_POST['s_kategori'];
    $s_keyword = $_POST['s_keyword'];
+
+   $keyword = $_POST['s_keyword'];
+   $kategori = $_POST['s_kategori'];
+   if (isset($_POST['s_keyword']) && isset($_POST['s_kategori']) != "") {
+      $files = query_assoc("SELECT * FROM `tbl_file` WHERE `judul` LIKE '%$keyword%' AND `tipe_file` LIKE '%$kategori%'");
+   } else {
+      $files = query_assoc("SELECT * FROM `tbl_file` WHERE `judul` LIKE '%$keyword%'");
+   }
+
+   if ($files) {
+      $pesan = "<p class='card-text' role='alert'>Menampilkan beberapa hasil dengan kategori <b>$kategori</b> </p>";
+   } else {
+      echo "<script>alert('Data Tidak Ditemukan!')</script>";
+      echo "<script>window.location='home.php'</script>";
+   }
 }
 
 ?>
@@ -27,7 +43,7 @@ if (isset($_POST['search'])) {
          <span class="mdi mdi-menu"></span>
       </button>
       <div class="search-field col-5 d-none d-md-block">
-         <form class="d-flex align-items-center h-100" action="home.php" method="post">
+         <form class="d-flex align-items-center h-100" action="" method="post">
             <div class="input-group ">
                <div class="input-group-prepend bg-transparent">
                   <i class="input-group-text border-0 mdi mdi-magnify"></i>

@@ -25,25 +25,14 @@ if (isset($_GET['id']) && isset($_GET['followed'])) {
       }
    }
 }
-$files = query_assoc("SELECT * FROM `tbl_file`  WHERE `privasi` = 2 ");
-
-if (isset($_POST['search'])) {
-   $keyword = $_POST['s_keyword'];
-   $kategori = $_POST['s_kategori'];
-   if (isset($_POST['s_keyword']) && isset($_POST['s_kategori']) != "") {
-      $files = query_assoc("SELECT * FROM `tbl_file` WHERE `judul` LIKE '%$keyword%' AND `tipe_file` LIKE '%$kategori%'");
-   } else {
-      $files = query_assoc("SELECT * FROM `tbl_file` WHERE `judul` LIKE '%$keyword%'");
-   }
-
-   if ($files) {
-      $pesan = "<p class='card-text' role='alert'>Menampilkan beberapa hasil dengan kategori <b>$kategori</b> </p>";
-   } else {
-      echo "<script>alert('Data Tidak Ditemukan!')</script>";
-      echo "<script>window.location='home.php'</script>";
-   }
-}
-
+$files = query_assoc("SELECT * FROM `tbl_file` WHERE `privasi` = 2 ");
+// $data = $conn->query(
+//    "SELECT `tbl_user`.`*` , `tbl_file`.`*`
+//    FROM `tbl_file`
+//    JOIN `tbl_user` ON `tbl_file`.`user_id` =` tbl_user`.`user_id`;
+//    WHERE `privasi` = 2;"
+// );
+$datas = $conn->query("SELECT * FROM `tbl_user` WHERE NOT `user_id` = $user_id AND NOT `role_id` = 1");
 
 
 include '../templates/header.php';  // 1
@@ -100,9 +89,43 @@ include '../templates/sidebar.php'; // 3
                      </p>
                      <hr>
                      <button onclick="window.location.href='../assets/uploads/<?= $user['email'] ?>/<?= $file['nama_file'] ?>';" class="btn btn-rounded btn-primary mr-2">Download</button>
-                     <button type="submit" onclick="window.location.href='share_file.php';" class="btn btn-outline-secondary btn-rounded btn-icon">
+                     <button type="submit" class="btn btn-outline-secondary btn-rounded btn-icon" data-toggle="modal" data-target="#share-<?= $file['file_id'] ?>">
                         <i class="mdi mdi-share"></i>
                      </button>
+
+                     <!-- Modal -->
+                     <div class="modal fade" id="share-<?= $file['file_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="share-Title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="exampleModalLongTitle">Bagikan Ke ?</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                 </button>
+                              </div>
+                              <div class="modal-body mb-5">
+                                 <hr class="mb-3">
+                                 <div class="row">
+                                    <div class="col text-center">
+                                       <p class="card-text">
+                                          <img src="../assets/profile/<?= $user['image'] ?>" alt="profile" style="width: 40px; height: 40px; object-fit: cover;" alt="foto" class="rounded-circle mr-2" class="rounded-circle">
+                                          <?= $user['username'] ?>
+                                       </p>
+                                    </div>
+                                    <div class="col text-center">
+                                       <p class="card-text">
+                                          <button type="submit" class="btn btn-primary btn-rounded btn-icon">
+                                             <i class="mdi mdi-share"></i>
+                                          </button>
+                                       </p>
+                                    </div>
+                                 </div>
+                              </div>
+                              <hr>
+                           </div>
+                        </div>
+                     </div>
+
                   </div>
                </div>
             </div>
